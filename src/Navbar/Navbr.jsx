@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import "./navbar.css";
 import logo from "./../assets/images/logo.png";
 
 import { Flex, Radio } from "antd";
+import { RootProvider } from "../MainLayout/MainLayout";
 const baseStyle = {
   width: "100%",
   height: 54,
@@ -23,6 +24,8 @@ const items1 = ["1", "2", "3"].map((key) => ({
 }));
 
 const Navbar = () => {
+  const { setState, navigate } = useContext(RootProvider);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -46,6 +49,18 @@ const Navbar = () => {
                 {i == 0 && (
                   <Header>
                     <span
+                      onClick={() => {
+                        setState((prev) => {
+                          return {
+                            ...prev,
+                            categoryList: {
+                              ...prev["categoryList"],
+                              value: "",
+                            },
+                          };
+                        });
+                        navigate("/");
+                      }}
                       className="anta-regular"
                       style={{
                         color: "white",

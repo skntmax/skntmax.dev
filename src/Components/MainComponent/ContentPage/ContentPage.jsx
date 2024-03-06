@@ -7,7 +7,14 @@ import javascript from "highlight.js/lib/languages/javascript";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import {
+  a11yDark,
+  zenburn,
+  darcula,
+  dark,
+  tomorrowNight,
+  tomorrowNightBlue,
+} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Space, Typography } from "antd";
 import { Routes, Route, useParams } from "react-router-dom";
 const { Text, Link } = Typography;
@@ -19,8 +26,16 @@ function ContentPage() {
   let params = useParams();
 
   return (
-    <div>
-      <SyntaxHighlighter language="javascript" style={docco}>
+    <div
+      style={{
+        height: "100%",
+        scrollbarColor: "inherit",
+        overflow: "hidden",
+      }}
+    >
+      <h1 mark> {jscode.find((ele) => ele.key == params.key).qs} </h1>
+      <Text>{jscode.find((ele) => ele.key == params.key).disc} </Text>
+      <SyntaxHighlighter language="javascript" style={tomorrowNightBlue}>
         {jscode.find((ele) => ele.key == params.key).answer}
       </SyntaxHighlighter>
     </div>

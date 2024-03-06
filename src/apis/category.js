@@ -11,13 +11,13 @@ export default [
     key: "1",
     label: "SQL interview Questions ",
     icon: <VideoCameraOutlined />,
-    multi: false,
+    multi: true,
   },
   {
     key: "2",
     label: "Sorting algorithms",
     icon: <JavaScriptOutlined />,
-    multi: false,
+    multi: true,
   },
   {
     key: "3",
@@ -29,13 +29,13 @@ export default [
     key: "4",
     label: "DSA",
     icon: <UploadOutlined />,
-    multi: false,
+    multi: true,
   },
 
   {
     key: "5",
     label: "Object Oriented Programming",
     icon: <MenuFoldOutlined />,
-    multi: false,
+    multi: true,
   },
 ];

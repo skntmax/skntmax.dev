@@ -10,6 +10,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Space, Typography } from "antd";
 import ListItem from "./List";
+import CardBox from "./HomePageCards";
 
 const { Text, Link } = Typography;
 
@@ -20,7 +21,7 @@ function ContentBox() {
   return (
     <div>
       {jscode.filter((ele) => ele.cat_id == state.categoryList.value.key)
-        .length > 0 && (
+        .length > 0 ? (
         <ListItem
           data={jscode
             .filter((ele) => ele.cat_id == state.categoryList.value.key)
@@ -33,6 +34,8 @@ function ContentBox() {
             })}
           navigate={navigate}
         />
+      ) : (
+        <CardBox />
       )}
     </div>
   );
