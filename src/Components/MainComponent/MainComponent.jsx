@@ -3,14 +3,56 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
-  UserOutlined,
   VideoCameraOutlined,
+  JavaScriptOutlined,
 } from "@ant-design/icons";
+// import { Navigate } from "react-router-dom";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { Dropdown, message, Space, Tooltip } from "antd";
+import { useNavigate } from "react-router-dom";
 import Categories from "./../../apis/category";
 import { Layout, Menu, Button, theme } from "antd";
 import { RootProvider } from "../../MainLayout/MainLayout";
 const { Header, Sider, Content } = Layout;
+
+const items = [
+  {
+    label: "1st menu item",
+    key: "1",
+    icon: <UserOutlined />,
+  },
+  {
+    label: "2nd menu item",
+    key: "2",
+    icon: <UserOutlined />,
+  },
+  {
+    label: "3rd menu item",
+    key: "3",
+    icon: <UserOutlined />,
+    danger: true,
+  },
+  {
+    label: "4rd menu item",
+    key: "4",
+    icon: <UserOutlined />,
+    danger: true,
+    disabled: true,
+  },
+];
+
+const handleMenuClick = (e) => {
+  message.info("Click on menu item.");
+  console.log("click", e);
+};
+
+const menuProps = {
+  items,
+  onClick: handleMenuClick,
+};
+
 const LayoutComponent = ({ children }) => {
+  let nv = useNavigate();
   const { state, setState } = useContext(RootProvider);
   const [collapsed, setCollapsed] = useState(false);
 
@@ -18,24 +60,39 @@ const LayoutComponent = ({ children }) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const handleButtonClick = (e) => {
+    message.info("Click on left button.");
+    console.log("click left button", e);
+  };
+  const handleMenuClick = (e) => {
+    message.info("Click on menu item.");
+    console.log("click", e);
+  };
+
   return (
     <Layout
       style={{
-        height: "90vh",
+        minHeight: "100vh",
       }}
     >
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
           onClick={(e) => {
-            console.log("e", e);
+            let selectVal = Categories.find((ele) => e.key == ele.key);
             setState((prev) => {
-              let selectVal = Categories.find((ele) => e.key == ele.key).label;
               return {
                 ...prev,
-                categoryList: { ...prev["categoryList"], value: selectVal },
+                categoryList: {
+                  ...prev["categoryList"],
+                  value: { key: selectVal.key, value: selectVal.label },
+                },
               };
             });
+
+            nv(`/${selectVal.key}-${encodeURI(selectVal.label)}`);
+
+            // navigate(`/${e.key}-${encodeURI(e.label)}`);
           }}
           theme="dark"
           mode="inline"
@@ -43,11 +100,22 @@ const LayoutComponent = ({ children }) => {
           items={Categories.map((ele) => {
             return {
               ...ele,
-              icon: <UserOutlined />,
+              icon: ele.icon,
+              label: ele.multi ? (
+                <Dropdown menu={menuProps}>
+                  <span>
+                    <DownOutlined />
+                    {ele.label}
+                  </span>
+                </Dropdown>
+              ) : (
+                ele.label
+              ),
             };
           })}
         />
       </Sider>
+
       <Layout>
         <Header
           style={{
