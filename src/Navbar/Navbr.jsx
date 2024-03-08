@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Breadcrumb, Layout, Menu, Switch, theme } from "antd";
 import "./navbar.css";
-import logo from "./../assets/images/logo.png";
+import Darklogo from "./../assets/logo/night-view.png";
+import Lightlogo from "./../assets/logo/logo-no-background.png";
 
 import { Flex, Radio } from "antd";
 import { RootProvider } from "../MainLayout/MainLayout";
@@ -73,8 +74,16 @@ const Navbar = () => {
                         themes.active == "dark" ? "text-light" : "text-dark"
                       }
                     >
-                      SKNTMAX.DEV
+                      <img
+                        src={themes.active == "dark" ? Darklogo : Lightlogo}
+                        width={"min-content"}
+                        style={{
+                          width: "min-content",
+                          height: "39px",
+                        }}
+                      />
                     </span>
+
                     <span className="mx-2 align-items-center">
                       <SwitchCmp />
                     </span>
