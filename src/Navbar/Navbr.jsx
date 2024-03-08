@@ -7,6 +7,7 @@ import { Flex, Radio } from "antd";
 import { RootProvider } from "../MainLayout/MainLayout";
 import NavigationMenu from "./NavigationMenu";
 import SwitchCmp from "./Switch";
+import { ThemeContextProvider } from "../ThemeProvider";
 const baseStyle = {
   width: "100%",
   height: 54,
@@ -27,6 +28,7 @@ const items1 = ["1", "2", "3"].map((key) => ({
 
 const Navbar = () => {
   const { setState, navigate } = useContext(RootProvider);
+  const { themes, setThemes } = useContext(ThemeContextProvider);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -49,7 +51,11 @@ const Navbar = () => {
                 }}
               >
                 {i == 0 && (
-                  <Header>
+                  <Header
+                    style={{
+                      backgroundColor: themes.active == "dark" ? "" : "white",
+                    }}
+                  >
                     <span
                       onClick={() => {
                         setState((prev) => {
@@ -63,7 +69,9 @@ const Navbar = () => {
                         });
                         navigate("/");
                       }}
-                      className="text-light"
+                      className={
+                        themes.active == "dark" ? "text-light" : "text-dark"
+                      }
                     >
                       SKNTMAX.DEV
                     </span>
@@ -73,7 +81,11 @@ const Navbar = () => {
                   </Header>
                 )}
                 {i == 1 && (
-                  <Header>
+                  <Header
+                    style={{
+                      backgroundColor: themes.active == "dark" ? "" : "white",
+                    }}
+                  >
                     <NavigationMenu />
                   </Header>
                 )}

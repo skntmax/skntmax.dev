@@ -78,7 +78,7 @@ const NavigationMenu = () => {
   };
   return (
     <Menu
-      theme={"dark"}
+      theme={themes.active == "dark" ? "dark" : "light"}
       onClick={onClick}
       selectedKeys={[current]}
       mode="horizontal"
