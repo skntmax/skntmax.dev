@@ -32,9 +32,7 @@ function App() {
               }
         }
       >
-        {/* <MainLayout> */}
         <RouterProvider router={router}></RouterProvider>
-        {/* </MainLayout> */}
       </ConfigProvider>
     </>
   );
