@@ -4,10 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Button, Space } from "antd";
-import { ConfigProvider } from "antd";
+
+import ThemeProvider from "./ThemeProvider";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-  <ConfigProvider theme={{ token: { colorPrimary: "#00b96b" } }}>
+  <ThemeProvider>
     <App />
-  </ConfigProvider>
+  </ThemeProvider>
 );

@@ -5,7 +5,7 @@ import category from "../apis/category";
 const CardBox = () => (
   <Space direction="hirozontal" size={16}>
     <Flex wrap="wrap" gap="small">
-      {category.map((_, i) => (
+      {[...category, ...category, ...category].map((_, i) => (
         <Card
           title={_.label}
           extra={<a href="#">More</a>}

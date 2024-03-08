@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import Categories from "./../../apis/category";
 import { Layout, Menu, Button, theme } from "antd";
 import { RootProvider } from "../../MainLayout/MainLayout";
+import { ThemeContextProvider } from "../../ThemeProvider";
 const { Header, Sider, Content } = Layout;
 
 const items = [
@@ -52,6 +53,8 @@ const menuProps = {
 };
 
 const LayoutComponent = ({ children }) => {
+  const { themes, setThemes } = useContext(ThemeContextProvider);
+
   let nv = useNavigate();
   const { state, setState } = useContext(RootProvider);
   const [collapsed, setCollapsed] = useState(false);
@@ -78,6 +81,7 @@ const LayoutComponent = ({ children }) => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
+          style={{ height: "100vh" }}
           onClick={(e) => {
             let selectVal = Categories.find((ele) => e.key == ele.key);
             setState((prev) => {
@@ -94,7 +98,7 @@ const LayoutComponent = ({ children }) => {
 
             // navigate(`/${e.key}-${encodeURI(e.label)}`);
           }}
-          theme="dark"
+          theme={themes.active}
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={Categories.map((ele) => {
@@ -102,13 +106,13 @@ const LayoutComponent = ({ children }) => {
               ...ele,
               icon: ele.icon,
               label: ele.multi ? (
-                <Dropdown menu={menuProps}>
-                  <span>
-                    <DownOutlined />
-                    {ele.label}
-                  </span>
-                </Dropdown>
+                // <Dropdown menu={menuProps}>
+                <span>
+                  <DownOutlined />
+                  {ele.label}
+                </span>
               ) : (
+                // </Dropdown>
                 ele.label
               ),
             };

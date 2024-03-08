@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Layout, Menu, Switch, theme } from "antd";
 import "./navbar.css";
 import logo from "./../assets/images/logo.png";
 
 import { Flex, Radio } from "antd";
 import { RootProvider } from "../MainLayout/MainLayout";
+import NavigationMenu from "./NavigationMenu";
+import SwitchCmp from "./Switch";
 const baseStyle = {
   width: "100%",
   height: 54,
@@ -61,30 +63,18 @@ const Navbar = () => {
                         });
                         navigate("/");
                       }}
-                      className="anta-regular"
-                      style={{
-                        color: "white",
-                        fontSize: "20px",
-                      }}
+                      className="text-light"
                     >
                       SKNTMAX.DEV
+                    </span>
+                    <span className="mx-2 align-items-center">
+                      <SwitchCmp />
                     </span>
                   </Header>
                 )}
                 {i == 1 && (
                   <Header>
-                    <div className="demo-logo" />
-
-                    <Menu
-                      theme="dark"
-                      mode="horizontal"
-                      items={Headings}
-                      style={{
-                        flex: 1,
-                        minWidth: 0,
-                        fontSize: "20px",
-                      }}
-                    />
+                    <NavigationMenu />
                   </Header>
                 )}
               </div>
