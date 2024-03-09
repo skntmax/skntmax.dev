@@ -11,11 +11,12 @@ import LoginModal from "../Components/Login/LoginModel";
 import ModalWrapper from "../Components/Login/ModalWrapper";
 import ModalButtonTitle from "./ModalButtonTitle";
 import { ThemeContextProvider } from "../ThemeProvider";
+import SearchBar from "./Searchbar";
 
 const items = [
   {
     label: <ModalButtonTitle title={"HOME"} />,
-    key: "mail",
+    key: "home",
     icon: <HomeOutlined />,
   },
 

@@ -8,6 +8,12 @@ import { ConfigProvider } from "antd";
 import { Input, theme } from "antd";
 
 import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+
+import {
   createBrowserRouter,
   RouterProvider,
   Route,
@@ -15,6 +21,8 @@ import {
 } from "react-router-dom";
 import router from "./Router";
 import { ThemeContextProvider } from "./ThemeProvider";
+
+const queryClient = new QueryClient();
 
 function App() {
   const { themes } = useContext(ThemeContextProvider);
@@ -32,7 +40,9 @@ function App() {
               }
         }
       >
-        <RouterProvider router={router}></RouterProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router}></RouterProvider>
+        </QueryClientProvider>
       </ConfigProvider>
     </>
   );

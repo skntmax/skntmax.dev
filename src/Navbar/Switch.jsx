@@ -9,11 +9,14 @@ const SwitchCmp = () => {
     setThemes((prev) => {
       return {
         ...prev,
-        active: prev.active == "dark" ? "light" : "dark",
+        active: prev.active == "dark" ? "light" : "dark" ,
       };
     });
   };
 
+
   return <Switch defaultChecked onChange={onChange} />;
+
+  
 };
 export default SwitchCmp;

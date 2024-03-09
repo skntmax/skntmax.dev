@@ -9,6 +9,7 @@ import {
 import Homepage from "./Components/MainComponent/Homepage/Homepage";
 import RouterWrapper from "./RouterWrapper";
 import ContentPage from "./Components/MainComponent/ContentPage/ContentPage";
+import HomePageShimmer from "./Components/Shimmer/Shimmer";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
   {
     exact: true,
     path: "/admin-user",
-    element: <div>admin</div>,
+    element: <HomePageShimmer />,
   },
 ]);
 

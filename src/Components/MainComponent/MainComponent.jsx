@@ -81,7 +81,7 @@ const LayoutComponent = ({ children }) => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
-          style={{ height: "100vh" }}
+          style={{ minHeight: "100vh" }}
           onClick={(e) => {
             let selectVal = Categories.find((ele) => e.key == ele.key);
             setState((prev) => {

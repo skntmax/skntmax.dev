@@ -9,6 +9,7 @@ import { RootProvider } from "../MainLayout/MainLayout";
 import NavigationMenu from "./NavigationMenu";
 import SwitchCmp from "./Switch";
 import { ThemeContextProvider } from "../ThemeProvider";
+import SearchBar from "./Searchbar";
 const baseStyle = {
   width: "100%",
   height: 54,
@@ -92,10 +93,14 @@ const Navbar = () => {
                 {i == 1 && (
                   <Header
                     style={{
+                      display: "flex",
+                      alignItems: "center",
                       backgroundColor: themes.active == "dark" ? "" : "white",
                     }}
                   >
                     <NavigationMenu />
+                    
+                    <SearchBar  />
                   </Header>
                 )}
               </div>
