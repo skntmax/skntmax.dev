@@ -15,6 +15,7 @@ import CardBox from "./HomePageCards";
 const { Text, Link } = Typography;
 
 function ContentBox() {
+   
   const [hl, setHl] = useState();
   const { state, setState, navigate } = useContext(RootProvider);
 
