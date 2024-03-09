@@ -102,7 +102,6 @@ const Navbar = () => {
                   >
                     <NavigationMenu />
                     
-                    <SearchBar  />
                   </Header>
                 )}
               </div>

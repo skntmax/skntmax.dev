@@ -51,8 +51,8 @@ function ContentPage() {
     >
       <div className="row">
         <div className="col-sm-12 col-sm-12 col-md-12 col-xl-6 ">
-          <h1 mark> {jscode.find((ele) => ele.key == params.key).qs} </h1>
-          <span class="badge badge-pill badge-info">
+          <h3 className="text-text-capitalize"> {jscode.find((ele) => ele.key == params.key).qs} </h3>
+          <span className="badge badge-pill badge-info ">
             <Text>{jscode.find((ele) => ele.key == params.key).disc} </Text>
           </span>
         </div>

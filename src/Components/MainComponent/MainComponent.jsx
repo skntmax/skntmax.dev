@@ -14,6 +14,7 @@ import Categories from "./../../apis/category";
 import { Layout, Menu, Button, theme } from "antd";
 import { RootProvider } from "../../MainLayout/MainLayout";
 import { ThemeContextProvider } from "../../ThemeProvider";
+import SearchBar from "../../Navbar/Searchbar";
 const { Header, Sider, Content } = Layout;
 
 const items = [
@@ -121,8 +122,12 @@ const LayoutComponent = ({ children }) => {
       </Sider>
 
       <Layout>
+  
         <Header
           style={{
+            display:"flex",
+            alignItems:"center",
+            justifyContent:'flex-start',
             padding: 0,
             background: colorBgContainer,
           }}
@@ -137,6 +142,7 @@ const LayoutComponent = ({ children }) => {
               height: 64,
             }}
           />
+          <SearchBar />
         </Header>
 
         <Content
