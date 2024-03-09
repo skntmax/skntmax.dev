@@ -41,81 +41,70 @@ const Navbar = () => {
   return (
     <>
       <Layout>
-        <div className="row">
-          <Flex gap="middle" vertical>
-            <Flex vertical={value === "vertical"}>
-              {Array.from({
-                length: 2,
-              }).map((_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    ...baseStyle,
-                  }}
-                >
-                  {i == 0 && (
-                    <div className="col-2 col-md-12 col-sm-12">
-                      <Header
+        <Flex gap="middle" vertical>
+          <Flex vertical={value === "vertical"}>
+            {Array.from({
+              length: 2,
+            }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  ...baseStyle,
+                }}
+              >
+                {i == 0 && (
+                  <Header
+                    style={{
+                      backgroundColor: themes.active == "dark" ? "" : "white",
+                    }}
+                  >
+                    <span
+                      onClick={() => {
+                        setState((prev) => {
+                          return {
+                            ...prev,
+                            categoryList: {
+                              ...prev["categoryList"],
+                              value: "",
+                            },
+                          };
+                        });
+                        navigate("/");
+                      }}
+                      className={
+                        themes.active == "dark" ? "text-light" : "text-dark"
+                      }
+                    >
+                      <img
+                        src={themes.active == "dark" ? Darklogo : Lightlogo}
+                        width={"min-content"}
                         style={{
-                          backgroundColor:
-                            themes.active == "dark" ? "" : "white",
+                          width: "min-content",
+                          height: "39px",
                         }}
-                      >
-                        <span
-                          onClick={() => {
-                            setState((prev) => {
-                              return {
-                                ...prev,
-                                categoryList: {
-                                  ...prev["categoryList"],
-                                  value: "",
-                                },
-                              };
-                            });
-                            navigate("/");
-                          }}
-                          className={
-                            themes.active == "dark" ? "text-light" : "text-dark"
-                          }
-                        >
-                          <img
-                            src={themes.active == "dark" ? Darklogo : Lightlogo}
-                            width={"min-content"}
-                            style={{
-                              width: "min-content",
-                              height: "39px",
-                            }}
-                          />
-                        </span>
+                      />
+                    </span>
 
-                        <span className="mx-2 align-items-center">
-                          <SwitchCmp />
-                        </span>
-                      </Header>
-                    </div>
-                  )}
-
-                  {i == 1 && (
-                    <div className="col-10 col-md-12 col-sm-12">
-                      <Header
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          backgroundColor:
-                            themes.active == "dark" ? "" : "white",
-                        }}
-                      >
-                        <NavigationMenu />
-
-                        <SearchBar />
-                      </Header>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </Flex>
+                    <span className="mx-2 align-items-center">
+                      <SwitchCmp />
+                    </span>
+                  </Header>
+                )}
+                {i == 1 && (
+                  <Header
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      backgroundColor: themes.active == "dark" ? "" : "white",
+                    }}
+                  >
+                    <NavigationMenu />
+                  </Header>
+                )}
+              </div>
+            ))}
           </Flex>
-        </div>
+        </Flex>
       </Layout>
     </>
   );

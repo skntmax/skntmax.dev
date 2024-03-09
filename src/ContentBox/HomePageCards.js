@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card } from "antd";
+import { Card, Layout } from "antd";
 import { Button, Flex } from "antd";
 import category from "../apis/category";
 import { Image } from "antd";
@@ -26,12 +26,15 @@ const CardBox = () => {
   if (error) return "An error has occurred: " + error.message;
 
   return (
+     <Layout>
+
     <Space direction="hirozontal" size={16}>
       <Flex wrap="wrap" gap="small">
         {data.result.data.map((_, i) => (
           <Card
-            className="text-center text-caption-top cursor-pointer w-240"
+            className="text-center text-caption-top cursor-pointer w-240 cursor-pointer"
             title={_.TITLE}
+            extra={<a href="#">More</a>} style={{ width: 300 }}
           >
             <div className="custom-image">
               <Image
@@ -46,6 +49,7 @@ const CardBox = () => {
         ))}
       </Flex>
     </Space>
+     </Layout>
   );
 };
 
