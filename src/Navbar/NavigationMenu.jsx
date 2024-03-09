@@ -5,6 +5,7 @@ import {
   SettingOutlined,
   UserAddOutlined,
   HomeOutlined,
+  MergeOutlined
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import LoginModal from "../Components/Login/LoginModel";
@@ -59,6 +60,7 @@ const items = [
   {
     label: <ModalButtonTitle title={"MY GEARS"} />,
     key: "alipay",
+    icon:<MergeOutlined />
   },
   {
     label: (
@@ -69,21 +71,26 @@ const items = [
     key: "login",
     icon: <UserAddOutlined />,
   },
+
 ];
+
+
 const NavigationMenu = () => {
   const { themes, setThemes } = useContext(ThemeContextProvider);
   const [current, setCurrent] = useState("mail");
+
   const onClick = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
+   
   return (
     <Menu
+      className="w-100"
       theme={themes.active == "dark" ? "dark" : "light"}
       onClick={onClick}
       selectedKeys={[current]}
       mode="horizontal"
-      //   inlineIndent={0}
+        inlineIndent={0}
       items={items}
     />
   );

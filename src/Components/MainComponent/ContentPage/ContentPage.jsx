@@ -45,9 +45,8 @@ function ContentPage() {
   return (
     <div
       style={{
-        height: "100%",
+        minHeight: "100%",
         scrollbarColor: "inherit",
-        overflow: "hidden",
       }}
     >
       <div className="row">

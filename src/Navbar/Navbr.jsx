@@ -56,6 +56,8 @@ const Navbar = () => {
                   <Header
                     style={{
                       backgroundColor: themes.active == "dark" ? "" : "white",
+                   
+          
                     }}
                   >
                     <span
