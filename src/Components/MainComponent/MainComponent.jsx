@@ -75,7 +75,7 @@ const LayoutComponent = ({ children }) => {
   return (
     <Layout
       style={{
-        minHeight: "100vh",
+        height: "100vh",
       }}
     >
       <Sider trigger={null} collapsible collapsed={collapsed}>
