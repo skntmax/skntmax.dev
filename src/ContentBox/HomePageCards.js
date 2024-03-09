@@ -25,12 +25,14 @@ const CardBox = () => {
 
   if (error) return "An error has occurred: " + error.message;
 
-  console.log("data", data);
   return (
     <Space direction="hirozontal" size={16}>
       <Flex wrap="wrap" gap="small">
         {data.result.data.map((_, i) => (
-          <Card style={{ width: "240" }} title={_.TITLE}>
+          <Card
+            className="text-center text-caption-top cursor-pointer w-240"
+            title={_.TITLE}
+          >
             <div className="custom-image">
               <Image
                 alt="example"
