@@ -107,6 +107,7 @@ const Navbar = () => {
                   backgroundColor: themes.active == "dark" ? "" : "white",
                 }}
               >
+              
                 <Image
                   src={themes.active == "dark" ? Darklogo : Lightlogo}
                   height={30}
