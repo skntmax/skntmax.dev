@@ -2,6 +2,7 @@
 import React, { createContext, useState } from "react";
 import { Input, theme } from "antd";
 import { ConfigProvider } from "antd";
+import LayoutProvider from "../LayoutProvider/LayoutProvider";
 
 export const ThemeContextProvider = createContext({});
 
@@ -57,7 +58,7 @@ function ThemeProvider({ children }) {
               }
         }
       >
-        {children}
+        <LayoutProvider>{children}</LayoutProvider>
       </ConfigProvider>
     </ThemeContextProvider.Provider>
   );
