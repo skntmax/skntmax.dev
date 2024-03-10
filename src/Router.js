@@ -10,6 +10,7 @@ import Homepage from "./Components/MainComponent/Homepage/Homepage";
 import RouterWrapper from "./RouterWrapper";
 import ContentPage from "./Components/MainComponent/ContentPage/ContentPage";
 import HomePageShimmer from "./Components/Shimmer/Shimmer";
+import AddContent from "./Components/AdminPages/AddContent";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,12 @@ const router = createBrowserRouter([
     exact: true,
     path: "/admin-user",
     element: <HomePageShimmer />,
+  },
+
+  {
+    exact: true,
+    path: "/add-content",
+    element: <AddContent />,
   },
 ]);
 

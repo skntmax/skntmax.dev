@@ -84,50 +84,44 @@ const LayoutComponent = ({ children }) => {
         <Menu
           style={{ minHeight: "100%" }}
           onClick={(e) => {
-            let selectVal = Categories.find((ele) => e.key == ele.key);
+            debugger;
+            let selectVal = state.categoryList.options.find(
+              (ele) => e.key == ele._id
+            );
+
             setState((prev) => {
               return {
                 ...prev,
                 categoryList: {
                   ...prev["categoryList"],
-                  value: { key: selectVal.key, value: selectVal.label },
+                  value: { key: selectVal._id, value: selectVal.TITLE },
                 },
               };
             });
 
-            nv(`/${selectVal.key}-${encodeURI(selectVal.label)}`);
-
-            // navigate(`/${e.key}-${encodeURI(e.label)}`);
+            nv(`/${selectVal._id}-${encodeURI(selectVal.TITLE)}`);
+            return null;
           }}
           theme={themes.active}
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={Categories.map((ele) => {
+          items={state.categoryList.options.map((ele, index) => {
             return {
               ...ele,
-              icon: ele.icon,
-              label: ele.multi ? (
-                // <Dropdown menu={menuProps}>
-                <span>
-                  <DownOutlined />
-                  {ele.label}
-                </span>
-              ) : (
-                // </Dropdown>
-                ele.label
-              ),
+              key: ele._id,
+              // icon : ele.icon  ,
+              label: ele.TITLE,
             };
           })}
         />
       </Sider>
 
       <Layout>
-  
         <Header
           style={{
-            display:"flex",
-            alignItems:"center",
-            justifyContent:'flex-start',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
             padding: 0,
             background: colorBgContainer,
           }}

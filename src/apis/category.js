@@ -7,6 +7,14 @@ import {
 } from "@ant-design/icons";
 import js_logo from "./../assets/languages_logo/javascript.png";
 
+export const icons_arr = [
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  VideoCameraOutlined,
+  JavaScriptOutlined,
+];
+
 export default [
   {
     key: "1",
