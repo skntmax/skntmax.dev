@@ -11,48 +11,59 @@ import RouterWrapper from "./RouterWrapper";
 import ContentPage from "./Components/MainComponent/ContentPage/ContentPage";
 import HomePageShimmer from "./Components/Shimmer/Shimmer";
 import AddContent from "./Components/AdminPages/AddContent";
+import AddCategory from "./AdminCmp/AddCategory";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <RouterWrapper>
-        <Homepage />
-      </RouterWrapper>
+      <>
+        {" "}
+        <AddCategory />{" "}
+      </>
     ),
   },
 
-  {
-    exact: true,
-    path: "/:url",
-    element: (
-      <RouterWrapper>
-        <Homepage />
-      </RouterWrapper>
-    ),
-  },
+  // {
+  //   path: "/",
+  //   element: (
+  //     <RouterWrapper>
+  //       <Homepage />
+  //     </RouterWrapper>
+  //   ),
+  // },
 
-  {
-    exact: true,
-    path: "/:key/:title",
-    element: (
-      <RouterWrapper>
-        <ContentPage />
-      </RouterWrapper>
-    ),
-  },
+  // {
+  //   exact: true,
+  //   path: "/:url",
+  //   element: (
+  //     <RouterWrapper>
+  //       <Homepage />
+  //     </RouterWrapper>
+  //   ),
+  // },
 
-  {
-    exact: true,
-    path: "/admin-user",
-    element: <HomePageShimmer />,
-  },
+  // {
+  //   exact: true,
+  //   path: "/:key/:title",
+  //   element: (
+  //     <RouterWrapper>
+  //       <ContentPage />
+  //     </RouterWrapper>
+  //   ),
+  // },
 
-  {
-    exact: true,
-    path: "/add-content",
-    element: <AddContent />,
-  },
+  // {
+  //   exact: true,
+  //   path: "/admin-user",
+  //   element: <HomePageShimmer />,
+  // },
+
+  // {
+  //   exact: true,
+  //   path: "/add-content",
+  //   element: <AddContent />,
+  // },
 ]);
 
 export default router;
