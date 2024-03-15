@@ -159,6 +159,8 @@ function EditForm({ cat_id }) {
       //     fd.append("deleted_sub_cat", data.removed_subcat);
       //   }
 
+      setLoader(true);
+
       let model = { sub_cat: [], deleted_sub_cat: [] };
       model["title"] = data.title.value;
       model["disc"] = data.disc.value;
@@ -182,15 +184,12 @@ function EditForm({ cat_id }) {
       );
 
       console.log("update_cat", update_cat);
-      setLoader(true);
 
       if (update_cat.status) {
         alert("updated");
         await getCatContent();
-        setLoader(false);
       } else {
         alert(update_cat.error.message);
-        setLoader(false);
       }
 
       setLoader(false);
