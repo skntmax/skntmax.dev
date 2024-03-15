@@ -12,6 +12,8 @@ import ContentPage from "./Components/MainComponent/ContentPage/ContentPage";
 import HomePageShimmer from "./Components/Shimmer/Shimmer";
 import AddContent from "./Components/AdminPages/AddContent";
 import AddCategory from "./AdminCmp/AddCategory";
+import CustomEditor from "./Components/EditorComponent/RichTextEditor";
+import RootEditor from "./Components/EditorComponent/RootEditor";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,15 @@ const router = createBrowserRouter([
       <>
         {" "}
         <AddCategory />{" "}
+      </>
+    ),
+  },
+
+  {
+    path: "/add-content",
+    element: (
+      <>
+        <RootEditor />
       </>
     ),
   },
