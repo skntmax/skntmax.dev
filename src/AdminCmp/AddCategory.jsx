@@ -33,6 +33,7 @@ let intial_state = {
   },
 
   mode: "create",
+  _id: "",
 };
 
 function AddCategory() {
@@ -171,11 +172,12 @@ function AddCategory() {
             >
               <div className="col-12" style={{ width: "50%" }}>
                 <EditCategory
-                  changeMode={(val) =>
+                  changeMode={(val, value) =>
                     setData((prev) => {
                       return {
                         ...prev,
                         mode: val,
+                        _id: value,
                       };
                     })
                   }
@@ -397,7 +399,7 @@ function AddCategory() {
                   )}
                 </form>
               ) : (
-                <EditForm />
+                <EditForm cat_id={data._id} />
               )}
             </div>
           </div>

@@ -33,9 +33,9 @@ function EditCategory(props) {
           [name]: { ...prev[name], value: value },
         };
       });
-      props.changeMode("edit");
+      props.changeMode("edit", value);
     } else {
-      props.changeMode("create");
+      props.changeMode("create", value);
     }
   };
 

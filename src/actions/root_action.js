@@ -20,7 +20,7 @@ class Router {
   post(url, body, headers = {}) {
     return axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}/${this.basepath}/${url}`,
+        `${process.env.REACT_APP_BASE_URL}/${this.basepath}/${url}/`,
         body,
         headers
       )
