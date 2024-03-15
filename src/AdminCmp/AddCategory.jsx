@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import EditCategory from "./EditCategory";
+import EditForm from "./EditForm";
 
 let intial_state = {
   title: { name: "title", value: "", error: "", required: false },
@@ -29,6 +31,8 @@ let intial_state = {
     bulk_upload: false,
     ono: true,
   },
+
+  mode: "create",
 };
 
 function AddCategory() {
@@ -160,217 +164,241 @@ function AddCategory() {
         <div className=" row">
           <div className="row-8 ">
             <h1 className="text-center text-uppercase">Add category</h1>
+
             <div
-              className="d-flex justify-content-center align-items-center  border "
+              className="d-flex flex-column justify-content-center align-items-center  border "
               style={{ height: "100vh" }}
             >
-              <form style={{ width: "50%" }}>
-                <div class="form-group my-2">
-                  <input
-                    onChange={onChangeHandler}
-                    name={title.name}
-                    value={title.value}
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="title"
-                  />
-                </div>
+              <div className="col-12" style={{ width: "50%" }}>
+                <EditCategory
+                  changeMode={(val) =>
+                    setData((prev) => {
+                      return {
+                        ...prev,
+                        mode: val,
+                      };
+                    })
+                  }
+                />
+              </div>
 
-                <div class="form-group my-1">
-                  <textarea
-                    name={disc.name}
-                    value={disc.value}
-                    cols={5}
-                    style={{ height: "200px" }}
-                    onChange={onChangeHandler}
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Discription"
-                  />
-                </div>
+              {data.mode == "create" ? (
+                <form style={{ width: "50%" }}>
+                  <div class="form-group my-2">
+                    <input
+                      onChange={onChangeHandler}
+                      name={title.name}
+                      value={title.value}
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="title"
+                    />
+                  </div>
 
-                <div class="form-group m-2">
-                  <input
-                    onChange={onChangeHandler}
-                    name={multi.name}
-                    checked={multi.value}
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label for="exampleInputEmail1" className="mx-2 ">
-                    sub category
-                  </label>
-                </div>
+                  <div class="form-group my-1">
+                    <textarea
+                      name={disc.name}
+                      value={disc.value}
+                      cols={5}
+                      style={{ height: "200px" }}
+                      onChange={onChangeHandler}
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Discription"
+                    />
+                  </div>
 
-                {multi.value && (
-                  <div class="form-group my-5">
-                    <label for="exampleInputEmail1">sub category</label>
+                  <div class="form-group m-2">
+                    <input
+                      onChange={onChangeHandler}
+                      name={multi.name}
+                      checked={multi.value}
+                      type="checkbox"
+                      class="form-check-input"
+                      id="exampleCheck1"
+                    />
+                    <label for="exampleInputEmail1" className="mx-2 ">
+                      sub category
+                    </label>
+                  </div>
 
-                    <div className="row">
-                      <div className="col-12">
-                        <input
-                          name={data.sub_cat_status.name}
-                          type="radio"
-                          checked={data.sub_cat_status.bulk_upload}
-                          onChange={(e) => {
-                            const { name } = e.target;
-                            setData((prev) => {
-                              return {
-                                ...prev,
-                                ["sub_cat"]: { ...prev["sub_cat"], value: "" },
-                                [name]: {
-                                  ...prev[name],
-                                  bulk_upload: true,
-                                  ono: false,
-                                },
-                              };
-                            });
-                          }}
-                        />{" "}
-                        Bulk upload
+                  {multi.value && (
+                    <div class="form-group my-5">
+                      <label for="exampleInputEmail1">sub category</label>
+
+                      <div className="row">
+                        <div className="col-12">
+                          <input
+                            name={data.sub_cat_status.name}
+                            type="radio"
+                            checked={data.sub_cat_status.bulk_upload}
+                            onChange={(e) => {
+                              const { name } = e.target;
+                              setData((prev) => {
+                                return {
+                                  ...prev,
+                                  ["sub_cat"]: {
+                                    ...prev["sub_cat"],
+                                    value: "",
+                                  },
+                                  [name]: {
+                                    ...prev[name],
+                                    bulk_upload: true,
+                                    ono: false,
+                                  },
+                                };
+                              });
+                            }}
+                          />{" "}
+                          Bulk upload
+                        </div>
+
+                        <div className="col-12">
+                          <input
+                            name={data.sub_cat_status.name}
+                            type="radio"
+                            checked={data.sub_cat_status.ono}
+                            onChange={(e) => {
+                              const { name } = e.target;
+                              setData((prev) => {
+                                return {
+                                  ...prev,
+                                  ["sub_cat"]: {
+                                    ...prev["sub_cat"],
+                                    value: "",
+                                  },
+                                  [name]: {
+                                    ...prev[name],
+                                    bulk_upload: false,
+                                    ono: true,
+                                  },
+                                };
+                              });
+                            }}
+                          />
+                          One by One
+                        </div>
                       </div>
 
-                      <div className="col-12">
-                        <input
-                          name={data.sub_cat_status.name}
-                          type="radio"
-                          checked={data.sub_cat_status.ono}
-                          onChange={(e) => {
-                            const { name } = e.target;
-                            setData((prev) => {
-                              return {
-                                ...prev,
-                                ["sub_cat"]: { ...prev["sub_cat"], value: "" },
-                                [name]: {
-                                  ...prev[name],
-                                  bulk_upload: false,
-                                  ono: true,
-                                },
-                              };
-                            });
-                          }}
-                        />
-                        One by One
-                      </div>
-                    </div>
+                      {data.sub_cat_status.bulk_upload && (
+                        <div className="col-12">
+                          <textarea
+                            cols={6}
+                            style={{ height: "200px" }}
+                            name={data.bulk_sub_cat.name}
+                            value={data.bulk_sub_cat.value}
+                            onChange={onChangeHandler}
+                            type="text"
+                            class="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            placeholder={`add subcategories related to this topic '${title.value}'  followed by comma , such as :             topic1 , topic2 , topic2 ...`}
+                          />
+                        </div>
+                      )}
 
-                    {data.sub_cat_status.bulk_upload && (
-                      <div className="col-12">
-                        <textarea
-                          cols={6}
-                          style={{ height: "200px" }}
-                          name={data.bulk_sub_cat.name}
-                          value={data.bulk_sub_cat.value}
-                          onChange={onChangeHandler}
-                          type="text"
-                          class="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                          placeholder={`add subcategories related to this topic '${title.value}'  followed by comma , such as :             topic1 , topic2 , topic2 ...`}
-                        />
-                      </div>
-                    )}
-
-                    {data.sub_cat_status.ono &&
-                      sub_categoryValues.map((item, index, arr) => (
-                        <>
-                          <div key={index} className="row my-4">
-                            <div className="col-10">
-                              <input
-                                name={item.name}
-                                value={item.value}
-                                onChange={(e) => {
-                                  subCatHandler(e, index);
-                                }}
-                                type="text"
-                                class="form-control"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                                placeholder="subcategory"
-                              />
-                            </div>
-
-                            {arr.length > 1 && (
-                              <div className="col-1 ">
-                                <span
-                                  onClick={(e) => {
-                                    setData((prev) => {
-                                      return {
-                                        ...prev,
-                                        sub_categoryValues:
-                                          sub_categoryValues.filter(
-                                            (_, i) => i != index
-                                          ),
-                                      };
-                                    });
+                      {data.sub_cat_status.ono &&
+                        sub_categoryValues.map((item, index, arr) => (
+                          <>
+                            <div key={index} className="row my-4">
+                              <div className="col-10">
+                                <input
+                                  name={item.name}
+                                  value={item.value}
+                                  onChange={(e) => {
+                                    subCatHandler(e, index);
                                   }}
-                                  className="badge badge-danger badge-lg text-dark cursor-pointer "
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  remove
-                                </span>
+                                  type="text"
+                                  class="form-control"
+                                  id="exampleInputEmail1"
+                                  aria-describedby="emailHelp"
+                                  placeholder="subcategory"
+                                />
                               </div>
-                            )}
-                          </div>
-                        </>
-                      ))}
 
-                    {data.sub_cat_status.ono && (
-                      <span
-                        onClick={() => {
-                          setData((prev) => {
-                            return {
-                              ...prev,
-                              sub_categoryValues: [
-                                ...prev.sub_categoryValues,
-                                {
-                                  name: "sub_categoryValues",
-                                  value: "",
-                                  error: "",
-                                },
-                              ],
-                            };
-                          });
-                        }}
-                        className="btn btn-primary btn-block w-100"
-                      >
-                        add One category
-                      </span>
-                    )}
+                              {arr.length > 1 && (
+                                <div className="col-1 ">
+                                  <span
+                                    onClick={(e) => {
+                                      setData((prev) => {
+                                        return {
+                                          ...prev,
+                                          sub_categoryValues:
+                                            sub_categoryValues.filter(
+                                              (_, i) => i != index
+                                            ),
+                                        };
+                                      });
+                                    }}
+                                    className="badge badge-danger badge-lg text-dark cursor-pointer "
+                                    style={{ cursor: "pointer" }}
+                                  >
+                                    remove
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </>
+                        ))}
+
+                      {data.sub_cat_status.ono && (
+                        <span
+                          onClick={() => {
+                            setData((prev) => {
+                              return {
+                                ...prev,
+                                sub_categoryValues: [
+                                  ...prev.sub_categoryValues,
+                                  {
+                                    name: "sub_categoryValues",
+                                    value: "",
+                                    error: "",
+                                  },
+                                ],
+                              };
+                            });
+                          }}
+                          className="btn btn-primary btn-block w-100"
+                        >
+                          add One category
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  <div class="form-group my-5">
+                    <label for="exampleInputEmail1"> Category Image </label>
+                    <input
+                      name={img.name}
+                      onChange={onChangeHandler}
+                      type="file"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="subcategory"
+                    />
                   </div>
-                )}
 
-                <div class="form-group my-5">
-                  <label for="exampleInputEmail1"> Category Image </label>
-                  <input
-                    name={img.name}
-                    onChange={onChangeHandler}
-                    type="file"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="subcategory"
-                  />
-                </div>
-
-                {loader ? (
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status"></div>
-                  </div>
-                ) : (
-                  <span
-                    onClick={addCategory}
-                    class="btn btn-primary btn-block w-100 "
-                  >
-                    Submit
-                  </span>
-                )}
-              </form>
+                  {loader ? (
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-border" role="status"></div>
+                    </div>
+                  ) : (
+                    <span
+                      onClick={addCategory}
+                      class="btn btn-primary btn-block w-100 "
+                    >
+                      Submit
+                    </span>
+                  )}
+                </form>
+              ) : (
+                <EditForm />
+              )}
             </div>
           </div>
         </div>
