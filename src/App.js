@@ -21,6 +21,7 @@ import {
 } from "react-router-dom";
 import router from "./Router";
 import { ThemeContextProvider } from "./ThemeProvider";
+import AdminNav from "./Components/AdminPages/AdminNavabr/AdminNav";
 
 const queryClient = new QueryClient();
 
@@ -41,7 +42,7 @@ function App() {
         }
       >
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router}></RouterProvider>
+          .<RouterProvider router={router}></RouterProvider>
         </QueryClientProvider>
       </ConfigProvider>
     </>

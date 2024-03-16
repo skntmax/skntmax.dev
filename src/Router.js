@@ -14,13 +14,14 @@ import AddContent from "./Components/AdminPages/AddContent";
 import AddCategory from "./AdminCmp/AddCategory";
 import CustomEditor from "./Components/EditorComponent/RichTextEditor";
 import RootEditor from "./Components/EditorComponent/RootEditor";
+import AdminNav from "./Components/AdminPages/AdminNavabr/AdminNav";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <>
-        {" "}
+        <AdminNav />
         <AddCategory />{" "}
       </>
     ),
@@ -30,6 +31,8 @@ const router = createBrowserRouter([
     path: "/add-content",
     element: (
       <>
+        <AdminNav />
+
         <RootEditor />
       </>
     ),
