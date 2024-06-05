@@ -15,6 +15,7 @@ import AddCategory from "./AdminCmp/AddCategory";
 import CustomEditor from "./Components/EditorComponent/RichTextEditor";
 import RootEditor from "./Components/EditorComponent/RootEditor";
 import AdminNav from "./Components/AdminPages/AdminNavabr/AdminNav";
+import AddPaidFiles from "./Components/AddPaidFiles/AddPaidFiles";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <AdminNav />
-        <AddCategory />{" "}
+        <AddCategory />
       </>
     ),
   },
@@ -37,6 +38,19 @@ const router = createBrowserRouter([
       </>
     ),
   },
+
+
+  {
+    path: "/add-paid-files",
+    element: (
+      <>
+        <AdminNav />
+
+        <AddPaidFiles />
+      </>
+    ),
+  },
+
 
   // {
   //   path: "/",

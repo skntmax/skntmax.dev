@@ -29,6 +29,13 @@ function AdminNav() {
               About
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/add-paid-files">
+              add paid files 
+            </a>
+          </li>
+
         </ul>
         <form class="form-inline my-2 my-lg-0"></form>
       </div>

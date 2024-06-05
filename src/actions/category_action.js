@@ -19,4 +19,21 @@ function getCategoryList(url) {
     });
 }
 
-export { getCategories, getCategoryList };
+
+
+function savePaidPdf(url , model) {
+  return axios
+    .post(`${process.env.REACT_APP_BASE_URL}/v1/${url}` , model , {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err.message;
+    });
+}
+
+export { getCategories, getCategoryList , savePaidPdf };
