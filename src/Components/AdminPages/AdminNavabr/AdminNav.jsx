@@ -31,9 +31,9 @@ function AdminNav() {
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/add-paid-files">
+            <Link class="nav-link" href="/add-paid-files">
               add paid files 
-            </a>
+            </Link>
           </li>
 
         </ul>
