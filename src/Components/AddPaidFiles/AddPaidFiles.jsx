@@ -85,7 +85,6 @@ function AddPaidFiles() {
         }
 
 
-        alert("pdf saved")
         let formData = new FormData()
           formData.append('attachment' , data.file.value)
           formData.append('catId' , data.cat.value)
@@ -127,7 +126,7 @@ function AddPaidFiles() {
                 </div>
                  
                {loader ?   <button disabled class="btn btn-primary" > loader </button> :
-               <button  class="btn btn-primary" onClick={insertPaidFile} >Insert</button>
+                 <button  class="btn btn-primary" onClick={insertPaidFile} >Insert</button>
                  }
             
               
