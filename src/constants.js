@@ -1,0 +1,6 @@
+export const CAT_TYPES ={
+    GENERAL:"GENERAL",
+    FULL_STACK_CAFE:"FULL_STACK_CAFE",
+    "DSA":"DSA",
+    "SYSTEM_DESIGN":"SYSTEM_DESIGN"
+ }

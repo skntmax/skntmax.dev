@@ -8,7 +8,7 @@ function EditCategory(props) {
 
   const getCat = async () => {
     try {
-      let catgs = await v1rouer.get("get-categories");
+      let catgs = await v1rouer.get(`get-categories/ALL_CATEGORIES`);
       if (catgs.status) {
         setdata((prev) => {
           return {
@@ -20,9 +20,13 @@ function EditCategory(props) {
     } catch (err) {}
   };
 
+
+
   useEffect(() => {
     getCat();
   }, []);
+
+
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;

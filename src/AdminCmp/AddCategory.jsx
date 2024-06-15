@@ -3,11 +3,14 @@ import React from "react";
 import { useState } from "react";
 import EditCategory from "./EditCategory";
 import EditForm from "./EditForm";
+import { CAT_TYPES } from "../constants";
 
 let intial_state = {
   title: { name: "title", value: "", error: "", required: false },
   disc: { name: "disc", value: "", error: "", required: false },
   multi: { name: "multi", value: false, error: "", required: false },
+  cat_type: { name: "cat_type", value: "", error: "", required: false },
+
   sub_cat: {
     name: "sub_cat",
     value: "",
@@ -112,8 +115,7 @@ function AddCategory() {
       fd.append("disc", data.disc.value);
       fd.append("multi", data.multi.value);
       fd.append("img", data.img.value);
-
-      console.log("topic 1 ", fd.get("sub_cat"));
+      fd.append("cat_type", data.cat_type.value ||  CAT_TYPES.GENERAL);
 
       if (data.sub_cat_status.bulk_upload) {
         if (data.bulk_sub_cat.value != "") {
@@ -371,6 +373,19 @@ function AddCategory() {
                       )}
                     </div>
                   )}
+
+
+                  <div class="form-group my-5">
+                    <select 
+                    name={data.cat_type.name}
+                    onChange={onChangeHandler}
+                    class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected> Category type </option>
+                    {Object.values(CAT_TYPES).map(ele=> <option value={ele}>{ele}</option>) } 
+                
+                  </select>
+
+                  </div>
 
                   <div class="form-group my-5">
                     <label for="exampleInputEmail1"> Category Image </label>

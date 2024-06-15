@@ -40,7 +40,7 @@ function App() {
                 ...themes.light,
               }
         }
-      >
+      >   
         <QueryClientProvider client={queryClient}>
           .<RouterProvider router={router}></RouterProvider>
         </QueryClientProvider>
