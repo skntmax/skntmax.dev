@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getCategories, savePaidPdf } from '../../actions/category_action'
 
+import { Typeahead } from 'react-bootstrap-typeahead'; // ES2015
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 function AddPaidFiles() {
  
     const [data ,setData] = useState({
@@ -11,12 +13,12 @@ function AddPaidFiles() {
 
      const [ loader , setLoader ]  = useState(false)
     
-
     const {cat , file }  = data 
 
     useEffect(()=>{
+
           (async function(){
-             let cat =await  getCategories('get-categories')
+             let cat =await  getCategories('get-categories/ALL_CATEGORIES')
              setData(p=>({
                  ...p , 'cat':{...p['cat'] ,options:cat?.result?.data.map(ele=> ({_id:ele._id , TITLE:ele.TITLE })) }
              }))
@@ -30,8 +32,7 @@ function AddPaidFiles() {
         debugger 
         const { name  }  = e.target
          
-         
-        
+
          if(name=="file") {
 
             let filename = e.target.value
@@ -64,7 +65,6 @@ function AddPaidFiles() {
      const insertPaidFile =async ()=>{
            
         setLoader(true)
-        
         for(let key in data) {
            if(!data[key]['value']) {
               alert("please fill all the fields")
@@ -95,7 +95,7 @@ function AddPaidFiles() {
                   alert('saved')
             }
 
-            setLoader(false)
+    setLoader(false)
 
         } 
 
@@ -109,7 +109,20 @@ function AddPaidFiles() {
                 <div class="form-group" >
 
  
-                        <div class="form-group">
+                        <div>
+                            
+                        <Typeahead
+                            onChange={(selected) => {
+                               const {label , value} = selected[0]
+                                onChangeHandler({ target: { name:data.cat.name , value}  })
+                              }}
+                             
+                            options={ data.cat.options?data.cat.options.map(ele=>({label:ele.TITLE ,  value:ele._id})) :[]} />
+
+                        </div>
+
+
+                        {/* <div class="form-group">
                             <select type="text" onChange={onChangeHandler} name={cat.name} value={cat.value} class="form-control" id="exampleFormControlSelect1">
                              <option value=""> please select category first  </option>
                             {cat.options.map(ele=>{
@@ -117,7 +130,7 @@ function AddPaidFiles() {
                             })}
 
                             </select>
-                        </div>
+                        </div> */}
 
                 </div>
                 <div class="form-group">

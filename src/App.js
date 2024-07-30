@@ -42,7 +42,7 @@ function App() {
         }
       >   
         <QueryClientProvider client={queryClient}>
-          .<RouterProvider router={router}></RouterProvider>
+          <RouterProvider router={router}></RouterProvider>
         </QueryClientProvider>
       </ConfigProvider>
     </>
