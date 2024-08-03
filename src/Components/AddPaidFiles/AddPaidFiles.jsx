@@ -18,7 +18,7 @@ function AddPaidFiles() {
     useEffect(()=>{
 
           (async function(){
-             let cat =await  getCategories('get-categories/ALL_CATEGORIES')
+             let cat =await  getCategories('get-categories')
              setData(p=>({
                  ...p , 'cat':{...p['cat'] ,options:cat?.result?.data.map(ele=> ({_id:ele._id , TITLE:ele.TITLE })) }
              }))
