@@ -16,6 +16,9 @@ import CustomEditor from "./Components/EditorComponent/RichTextEditor";
 import RootEditor from "./Components/EditorComponent/RootEditor";
 import AdminNav from "./Components/AdminPages/AdminNavabr/AdminNav";
 import AddPaidFiles from "./Components/AddPaidFiles/AddPaidFiles";
+import ContentAccessRights from "./Components/ContentAccess/ContentAccessRights";
+import ContentList from "./Components/ContentAccess/ContentList";
+import EditStatus from "./Components/ContentAccess/EditStatus";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +54,43 @@ const router = createBrowserRouter([
     ),
   },
 
+  {
+    path: "/access-rights",
+    element: (
+      <>
+        <AdminNav />
+        <ContentAccessRights />
+      </>
+    ),
+  },
+
+  {
+    path: "/access-rights/questions-list/:contentId",
+    element: (
+      <>
+        <AdminNav />
+        <ContentList />
+      </>
+    ),
+  },
+
+
+  {
+    path: "/access-rights/questions-list/edit/:qtnId",
+    element: (
+      <>
+        <AdminNav />
+        <EditStatus />
+      </>
+    ),
+  },
+
+
+
+
+  
+
+  
 
   // {
   //   path: "/",

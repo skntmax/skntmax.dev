@@ -36,6 +36,13 @@ function AdminNav() {
             </Link>
           </li>
 
+          <li class="nav-item">
+            <Link className="nav-link" to="/access-rights">
+              Give Content Access 
+            </Link>
+          </li>
+
+
         </ul>
         <form class="form-inline my-2 my-lg-0"></form>
       </div>
