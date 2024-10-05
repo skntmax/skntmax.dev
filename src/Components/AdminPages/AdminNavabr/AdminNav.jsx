@@ -42,6 +42,13 @@ function AdminNav() {
             </Link>
           </li>
 
+          
+          <li class="nav-item">
+            <Link className="nav-link" to="/quiz-section">
+              Quiz section  
+            </Link>
+          </li>
+
 
         </ul>
         <form class="form-inline my-2 my-lg-0"></form>

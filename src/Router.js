@@ -19,6 +19,8 @@ import AddPaidFiles from "./Components/AddPaidFiles/AddPaidFiles";
 import ContentAccessRights from "./Components/ContentAccess/ContentAccessRights";
 import ContentList from "./Components/ContentAccess/ContentList";
 import EditStatus from "./Components/ContentAccess/EditStatus";
+import AddingQuizQuestin from "./Components/QuizComponents/QuizSection";
+import QuizSection from "./Components/QuizComponents/QuizSection";
 
 const router = createBrowserRouter([
   {
@@ -74,13 +76,22 @@ const router = createBrowserRouter([
     ),
   },
 
-
   {
     path: "/access-rights/questions-list/edit/:qtnId",
     element: (
       <>
         <AdminNav />
         <EditStatus />
+      </>
+    ),
+  },
+
+  {
+    path: "/quiz-section",
+    element: (
+      <>
+        <AdminNav />
+        <QuizSection />
       </>
     ),
   },
