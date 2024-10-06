@@ -3,7 +3,6 @@ import axios from "axios";
 function getCategories(url) {
   return axios
     .post(`${process.env.REACT_APP_BASE_URL}/v1/${url}`,{
-       
       CAT_TYPE:"ALL_CATEGORIES"
     })
     .then((res) => {

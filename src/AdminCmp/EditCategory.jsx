@@ -8,7 +8,7 @@ function EditCategory(props) {
 
   const getCat = async () => {
     try {
-      let catgs = await v1rouer.post(`get-categories`,{CAT_TYPE:"ALL_CATEGORIES"});
+      let catgs = await v1rouer.post(`get-categories`,{ CAT_TYPE:"ALL_CATEGORIES"  });
       if (catgs.status) {
         setdata((prev) => {
           return {

@@ -15,9 +15,11 @@ function AddQuestionToCatgs() {
     
 const [fd , setFd ]  = useState({
     quiz_cat: { name: "quiz_cat", value: "", options:[], error: "", required: false  , pn:1 , itemsPerPage:100},
+    cat_wise_questions: { name: "cat_wise_questions", value: "", options:[], error: "", required: false  , pn:1 , itemsPerPage:100},
     difficulty_level: { name: "difficulty_level", options:[] ,  value: "", error: "", required: false },
     answers: { name: "answers" , value: false, options:[], error: "", required: false },
-   }  ) 
+
+}  ) 
   
 
     const onSelect = ()=>{
@@ -47,6 +49,28 @@ const [fd , setFd ]  = useState({
     
         }
 
+
+        const onPickupQuestion = (array , )=>{
+             setOptions('answers', array )
+        }
+
+
+
+        const onChangeDifficulty= (e, key )=>{
+         const { name , value:difficultyId  } = e.target
+         
+         let updatedAnswersOptions = fd.answers.options.map((ele, index)=>{
+             if(index==key) {
+               return { ...ele , difficultyId:difficultyId   }    
+             }
+             return ele 
+         })
+          
+         setOptions('answers', updatedAnswersOptions )
+            
+        }
+
+
     const callQuizCat = async ()=>{
          let res = await v1rouer.post('quiz/get-quiz-categories',{pn:fd.quiz_cat?.pn , itemsPerPage:fd.quiz_cat?.itemsPerPage } )
          return res?.result
@@ -57,6 +81,8 @@ const [fd , setFd ]  = useState({
         let res = await v1rouer.get('quiz/get-difficulty-level' )
         return res?.result
         }
+        
+
     
 
     const callQuestionsArray = async ()=>{
@@ -66,10 +92,62 @@ const [fd , setFd ]  = useState({
         return res?.result
        
     }
+
+
     
+    const catWiseQuizQuestions = async ()=>{
+        let res = await v1rouer.post('quiz/get-topic-wise-questions' , {    
+            "quizCat":fd?.quiz_cat?.value , } )
+        return res?.result
+       
+    }
     
-            
+
+    const callAllQuizQuestions = async ()=>{
+        let res = await v1rouer.get('quiz/get-all-quiz-questions'  )
+        return res?.result
+       
+    }
     
+
+      
+
+    const callUpdateAllQuestions = async (payload)=>{
+        let res = await v1rouer.post('quiz/update-questions-into-quiz-cat' ,payload , {}  )
+        return res?.result
+       
+    }
+    
+
+    const onSubmitQuestions= async ()=>{
+        let params = {  
+            "quizCat":fd.quiz_cat?.value ,  
+            "questions":[] }
+
+         let notValid = fd.answers.options.some(ele=> ele.difficultyId=="" )   
+        
+         if(notValid){
+            alert("please set difficilty level")
+            return 
+         }
+          
+        let updatedQuestion  = fd.answers.options.map(ele=>{
+              return { 
+                    "questionId":ele.value,
+                    "difficultyId":ele.difficultyId
+             }
+        })
+        params.questions = updatedQuestion
+        let updatd = await callUpdateAllQuestions(params)
+
+         if(updatd?.result?.data){
+            alert("updated")
+         }else{
+             alert("some erorr occured")
+         }
+
+    }
+
     
     useEffect(()=>{
 
@@ -108,11 +186,34 @@ const [fd , setFd ]  = useState({
          
     },[fd?.quiz_cat?.value , fd.difficulty_level?.value])
 
+
+    useEffect(()=>{
+          
+        if(fd?.quiz_cat?.value!="" ) {
+           (async function(){
+               let allQuizQuestions = await callAllQuizQuestions()
+                if(allQuizQuestions?.data) {
+                   let arr = allQuizQuestions?.data.map((ele)=>(
+                       {
+                       value:ele._id,
+                       name:ele.QUESTION,
+                       difficultyId:"" 
+                   }))
+                   
+                    setOptions('cat_wise_questions',arr )
+                }
+           })()
+
+          }
+       
+  },[fd?.quiz_cat?.value])
+
+
     return (
      
      <>
       <div className='container'>
-         <div className='row'>
+         <div className='row border '>
           <div className='col-6'>
             Quiz Cateogry
 
@@ -138,28 +239,52 @@ const [fd , setFd ]  = useState({
 
             </select>
           </div>
-              
-         </div>
-      </div>
 
-      <div className='container'>
-         <div className='row'>
-          <div className='col-12'>
+          <div className='col-12 my-3'>
           <Typeahead
             id="basic-typeahead"
             labelKey="name"
             multiple
-            // onChange={setSelected}
-            options={fd.answers.options || []}
+            disabled={(fd?.difficulty_level?.value!="" &&  fd?.quiz_cat?.value!="")?false:true }
+            onChange={onPickupQuestion}
+            options={fd.cat_wise_questions.options || []}
             placeholder="Choose a fruit..."
             selected={fd.answers.options || []}
             />
-                    
-
-          </div>               
+          </div> 
          </div>
+
+
+
+
+         <div className='col-12 my-3' style={{height:"60vh" , overflow:"auto"}}>
+          
+         <ul className="list-group list-group-flush">
+        
+              
+            {fd?.answers?.options && fd?.answers?.options.length>0 &&  fd?.answers?.options.map((ele, index)=> {
+                 return <>                  
+                    <li className="list-group-item flex justify-content-between"  > 
+                  {ele?.name || ""}
+                  <select style={{width:"auto"}} name="setDifficulty"   onChange={(e)=>onChangeDifficulty(e, index)}   className="form-select form-select-sm " aria-label=".form-select-sm example">
+                    <option selected>Select Difficulty</option>
+                    {fd?.difficulty_level?.options && fd?.difficulty_level?.options.length>0 &&  fd?.difficulty_level?.options.map((ele)=>(
+                            <option value={ele._id}>{ele.DIFFICULTY_LEVEL}</option>
+                        )) }        
+                    </select>
+                     </li>
+                 </>
+            } ) }     
+                
+        </ul>
          
+        <button type="button" onClick={onSubmitQuestions} class="btn btn-primary btn-lg btn-block my-5" style={{width:"100%"}}>Update Quiz Questions</button>
+         
+         </div>
+
       </div>
+
+    
 
            
       </>
