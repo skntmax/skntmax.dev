@@ -140,7 +140,7 @@ const [fd , setFd ]  = useState({
         params.questions = updatedQuestion
         let updatd = await callUpdateAllQuestions(params)
 
-         if(updatd?.result?.data){
+         if(updatd?.data){
             alert("updated")
          }else{
              alert("some erorr occured")
