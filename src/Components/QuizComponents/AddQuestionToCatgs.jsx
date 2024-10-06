@@ -18,10 +18,10 @@ const [fd , setFd ]  = useState({
     cat_wise_questions: { name: "cat_wise_questions", value: "", options:[], error: "", required: false  , pn:1 , itemsPerPage:100},
     difficulty_level: { name: "difficulty_level", options:[] ,  value: "", error: "", required: false },
     answers: { name: "answers" , value: false, options:[], error: "", required: false },
-
 }  ) 
   
-
+    const [update , setUpdate]  = useState(false)
+  
     const onSelect = ()=>{
          
     }
@@ -120,9 +120,12 @@ const [fd , setFd ]  = useState({
     
 
     const onSubmitQuestions= async ()=>{
+        setUpdate(true)
         let params = {  
-            "quizCat":fd.quiz_cat?.value ,  
-            "questions":[] }
+            "quizCat":fd.quiz_cat?.value ,
+            difficultyId: fd.difficulty_level?.value ,  
+            "questions":[]
+        }
 
          let notValid = fd.answers.options.some(ele=> ele.difficultyId=="" )   
         
@@ -140,11 +143,14 @@ const [fd , setFd ]  = useState({
         params.questions = updatedQuestion
         let updatd = await callUpdateAllQuestions(params)
 
+        console.log("updatd",updatd)
          if(updatd?.data){
             alert("updated")
          }else{
              alert("some erorr occured")
          }
+
+         setUpdate(false)
 
     }
 
@@ -173,7 +179,7 @@ const [fd , setFd ]  = useState({
                  let qtnList = await callQuestionsArray()
                   if(qtnList?.data) {
                      let arr = qtnList?.data.map((ele)=>({
-                         value:ele._id,
+                         value:ele.QUIZ_QUESTION?._id,
                          name:ele?.QUIZ_QUESTION?.QUESTION
                      }))
 
@@ -278,7 +284,18 @@ const [fd , setFd ]  = useState({
                 
         </ul>
          
-        <button type="button" onClick={onSubmitQuestions} class="btn btn-primary btn-lg btn-block my-5" style={{width:"100%"}}>Update Quiz Questions</button>
+       
+        <button type="button"
+        disabled={update?true:false}
+         onClick={onSubmitQuestions}
+          class="btn btn-primary btn-lg btn-block my-5" style={{width:"100%"}}>
+                        
+                {
+                    update? <div class="spinner-border" role="status">
+                        </div> :"Update Quiz Questions"
+                }         
+  
+          </button>
          
          </div>
 
