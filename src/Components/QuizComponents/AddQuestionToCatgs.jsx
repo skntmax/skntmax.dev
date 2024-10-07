@@ -88,7 +88,9 @@ const [fd , setFd ]  = useState({
     const callQuestionsArray = async ()=>{
         let res = await v1rouer.post('quiz/get-relvent-questions' , {    
             "quizCat":fd?.quiz_cat?.value ,
-            "difficultyId":fd?.difficulty_level?.value } )
+            "difficultyId":fd?.difficulty_level?.value,
+            pagination:false
+        } )
         return res?.result
        
     }
@@ -178,9 +180,10 @@ const [fd , setFd ]  = useState({
              (async function(){
                  let qtnList = await callQuestionsArray()
                   if(qtnList?.data) {
-                     let arr = qtnList?.data.map((ele)=>({
+                     let arr = qtnList?.data.questionList?.map((ele)=>({
                          value:ele.QUIZ_QUESTION?._id,
-                         name:ele?.QUIZ_QUESTION?.QUESTION
+                         name:ele?.QUIZ_QUESTION?.QUESTION,
+                         
                      }))
 
                      setOptions('answers',arr )
