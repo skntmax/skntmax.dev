@@ -1,5 +1,6 @@
 import React from 'react'
 import AddQuestionToCatgs from './AddQuestionToCatgs'
+import AddQuizQuestion from './AddQuizQuestion'
 
 function QuizSection() {
   
@@ -15,6 +16,11 @@ function QuizSection() {
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> Add Questions to Category</button>
   </li>
+
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#question-pill" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> Add Quiz Questions </button>
+  </li>
+
 </ul>
  
 <div class="tab-content" id="pills-tabContent">
@@ -23,8 +29,15 @@ function QuizSection() {
   
   <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
         <AddQuestionToCatgs  />
-
   </div>
+
+  <div class="tab-pane fade" id="question-pill" role="tabpanel" aria-labelledby="pills-contact-tab">
+         <AddQuizQuestion />
+  </div>
+
+
+  
+
 </div>
              
           </>
