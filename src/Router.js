@@ -21,14 +21,34 @@ import ContentList from "./Components/ContentAccess/ContentList";
 import EditStatus from "./Components/ContentAccess/EditStatus";
 import AddingQuizQuestin from "./Components/QuizComponents/QuizSection";
 import QuizSection from "./Components/QuizComponents/QuizSection";
+import Login from "./AdminCmp/login";
+import CookieProvider from "./Components/CookieProvider/CookieProvider";
+import PrivateWrapper from "./PrivateWrapper";
+import CustomCookieProvider from "./CustomCookieProvider";
 
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: (
       <>
+        <Login />
+      </>
+    ),
+  },
+
+
+
+  {
+    path: "/home",
+    element: (
+      <>
+   
+        <PrivateWrapper>
         <AdminNav />
         <AddCategory />
+        </PrivateWrapper>
+   
       </>
     ),
   },
@@ -37,9 +57,11 @@ const router = createBrowserRouter([
     path: "/add-content",
     element: (
       <>
+        <PrivateWrapper>
+          
         <AdminNav />
-
         <RootEditor />
+        </PrivateWrapper>
       </>
     ),
   },
@@ -49,9 +71,12 @@ const router = createBrowserRouter([
     path: "/add-paid-files",
     element: (
       <>
+       <PrivateWrapper>
+
         <AdminNav />
 
         <AddPaidFiles />
+       </PrivateWrapper>
       </>
     ),
   },
@@ -60,8 +85,10 @@ const router = createBrowserRouter([
     path: "/access-rights",
     element: (
       <>
+        <PrivateWrapper>
         <AdminNav />
         <ContentAccessRights />
+        </PrivateWrapper>
       </>
     ),
   },
@@ -70,8 +97,10 @@ const router = createBrowserRouter([
     path: "/access-rights/questions-list/:contentId",
     element: (
       <>
+        <PrivateWrapper>
         <AdminNav />
         <ContentList />
+        </PrivateWrapper>
       </>
     ),
   },
@@ -80,8 +109,10 @@ const router = createBrowserRouter([
     path: "/access-rights/questions-list/edit/:qtnId",
     element: (
       <>
+       <PrivateWrapper>
         <AdminNav />
         <EditStatus />
+       </PrivateWrapper>
       </>
     ),
   },
@@ -90,11 +121,15 @@ const router = createBrowserRouter([
     path: "/quiz-section",
     element: (
       <>
+        <PrivateWrapper>
         <AdminNav />
         <QuizSection />
+        </PrivateWrapper>
       </>
     ),
   },
+
+
 
 
 
