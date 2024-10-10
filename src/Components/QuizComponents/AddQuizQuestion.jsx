@@ -5,8 +5,14 @@ import { v1rouer } from '../../actions/root_action'
 import { MdEditor ,MdCatalog ,MdPreview } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 import { utils } from '../../utils';
+import { useCookies } from 'react-cookie';
+import { constants } from '../../constant';
+
+  import JSONInput from 'react-json-editor-ajrm';
+    import locale    from 'react-json-editor-ajrm/locale/en'
 
 function AddQuizQuestion() {
+    const [cookies, setCookie] = useCookies ([constants.btcode_live_cd_key , constants.btcode_live_cd]);
 
      const [ fd ,setFd] = useState({ 
         quizQuestion: { name: "quizQuestion", value: "", options:[], error: "", required: false  , pn:1 , itemsPerPage:100},
@@ -21,7 +27,17 @@ function AddQuizQuestion() {
       })
 
 
-    const [finalPayload ,setFinalPayload]  = useState("")
+    const [finalPayload ,setFinalPayload]  = useState({
+        "question": "What is the difference between @media and @supports in CSS?",
+        "options": [
+            "@media is used for applying styles based on screen size, while @supports is used for applying styles based on feature support.",
+            "@supports is used for defining fallback styles for old browsers, and @media is used for defining styles for different devices.",
+            "@media is used for detecting user agent types, while @supports is used for conditional loading of external stylesheets.",
+            "@supports is used for mobile responsiveness, and @media is used for desktop responsiveness."
+        ],
+        "correctAnswer": 0,
+        "description": "@media is used for applying CSS styles based on conditions like screen size, orientation, and resolution, while @supports is used for applying styles based on whether the browser supports a specific CSS feature.\n\n### Example of @media:\n\n```css\n@media (max-width: 600px) {\n  body {\n    background-color: lightblue;\n  }\n}\n```\n\nIn this example, the background color of the `body` will only change if the viewport width is 600px or smaller.\n\n### Example of @supports:\n\n```css\n@supports (display: grid) {\n  .container {\n    display: grid;\n  }\n}\n```\n\nIn this example, the `.container` will only use CSS Grid if the browser supports the `display: grid` property."
+    })
     
       const [mode ,setMode]  = useState({
          manual:true,
@@ -93,7 +109,11 @@ function AddQuizQuestion() {
 
     
     const submit = async (payload)=>{
-        let res = await v1rouer.post('quiz/insert-quiz-questions' ,payload  )
+        let res = await v1rouer.post('quiz/insert-quiz-questions' ,payload , {
+            headers:{
+                 "authorization":`Bearer ${cookies[constants.btcode_live_cd_key]}`
+            }
+        }  )
         return res?.result
        
     }
@@ -128,14 +148,16 @@ function AddQuizQuestion() {
                  alert("please enter body first ")
                  return 
               }
+
+              console.log(finalPayload)
             
-            let payload = utils.checkDiscription(finalPayload)?finalPayload:{}  
-           let res =  await submit(payload) 
-            if(res?.data){
-                alert('added ')
-            }else{
-                alert('some error occured ',)             
-            }  
+        //     let payload = utils.checkDiscription(JSON.parse(finalPayload) )? JSON.parse(finalPayload):{}  
+        //    let res =  await submit( JSON.parse(payload) ) 
+        //     if(res?.data){
+        //         alert('added ')
+        //     }else{
+        //         alert('some error occured ',)             
+        //     }  
         }         
     }
             
@@ -173,13 +195,23 @@ function AddQuizQuestion() {
 
 { 
     mode.json ?  
-    <textarea   
-      name={'json'}
-      class="form-control my-5"
-       id="exampleFormControlTextarea1" 
-       rows="10"
-       onChange={(e)=> setFinalPayload(e.target.value)}
-        placeholder={"put your json here"} /> :" " 
+
+    <JSONInput
+        id          = 'a_unique_id'
+        placeholder = {  finalPayload }
+        
+        locale      = { locale }
+        value={finalPayload}
+        style={{width:"100%"}}
+        height      = '500px'
+        
+        onChange={(payload)=>
+        console.log(payload)
+        // setFinalPayload(payload)
+        
+        }
+        
+    /> :" " 
 }
 
            {
@@ -232,7 +264,8 @@ function AddQuizQuestion() {
             modelValue={fd.description.value || ""} 
             onChange={(value)=>{setState({ target:{name:'description' ,value} } )} }  
             />
-       
+
+
        <MdPreview  language='en-US' editorId={'show'} modelValue={fd.description.value || ""}   previewTheme="github"  />
  
         </div>

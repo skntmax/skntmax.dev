@@ -72,9 +72,7 @@ const router = createBrowserRouter([
     element: (
       <>
        <PrivateWrapper>
-
         <AdminNav />
-
         <AddPaidFiles />
        </PrivateWrapper>
       </>
