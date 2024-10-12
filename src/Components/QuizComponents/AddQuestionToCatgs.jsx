@@ -133,6 +133,7 @@ const [fd , setFd ]  = useState({
         
          if(notValid){
             alert("please set difficilty level")
+            setUpdate(false)
             return 
          }
           
