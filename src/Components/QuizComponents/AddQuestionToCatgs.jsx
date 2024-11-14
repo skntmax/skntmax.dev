@@ -263,6 +263,7 @@ const [fd , setFd ]  = useState({
           </div>
 
           <div className='col-12 my-3'>
+          {fd.answers.options.length}
           <Typeahead
             id="basic-typeahead"
             labelKey="name"
@@ -277,8 +278,8 @@ const [fd , setFd ]  = useState({
                <>
                 <MenuItem
                 onClick={(e) => e.preventDefault()} // Prevent Typeahead from closing
-        >
-          <div
+                    >
+            <div
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation(); // Prevent Typeahead from closing and losing focus
@@ -289,7 +290,6 @@ const [fd , setFd ]  = useState({
                     <input
                         type="checkbox"
                         checked={fd.answers.options.some((selectedOption)=> selectedOption.value == option?.value ) }
-                        
                         style={{ marginRight: '8px' }}
                     />
                 <span>{option.name}</span>
