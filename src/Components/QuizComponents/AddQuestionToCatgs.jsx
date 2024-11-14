@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Typeahead } from 'react-bootstrap-typeahead';
+import { Typeahead,MenuItem } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { v1rouer } from '../../actions/root_action';
 
@@ -45,13 +45,25 @@ const [fd , setFd ]  = useState({
              return {
               ...p , [name]:{ ...p[name] , options : options }    
              }
-        })
+                })
     
         }
 
 
-        const onPickupQuestion = (array , )=>{
-             setOptions('answers', array )
+    
+        const appendOptions = (name ,obj )=>{
+            setFd(p=>{
+            return {
+             ...p , [name]:{ ...p[name] , options : [ ...p[name]['options'] , {value:obj.value , name:obj.name}  ] }    
+            }
+               })
+   
+       }
+
+
+        const onPickupQuestion = (array )=>{
+             appendOptions('answers', array)
+
         }
 
 
@@ -209,7 +221,7 @@ const [fd , setFd ]  = useState({
                        name:ele.QUESTION,
                        difficultyId:"" 
                    }))
-                   
+
                     setOptions('cat_wise_questions',arr )
                 }
            })()
@@ -256,10 +268,36 @@ const [fd , setFd ]  = useState({
             labelKey="name"
             multiple
             disabled={(fd?.difficulty_level?.value!="" &&  fd?.quiz_cat?.value!="")?false:true }
-            onChange={onPickupQuestion}
+            // onChange={onPickupQuestion}
             options={fd.cat_wise_questions.options || []}
             placeholder="Choose a fruit..."
             selected={fd.answers.options || []}
+
+            renderMenuItemChildren={(option, props) => (
+               <>
+                <MenuItem
+                onClick={(e) => e.preventDefault()} // Prevent Typeahead from closing
+        >
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation(); // Prevent Typeahead from closing and losing focus
+              onPickupQuestion(option); // Toggle selection
+                }}
+                style={{ display: 'flex', alignItems: 'center' }}
+                >
+                    <input
+                        type="checkbox"
+                        checked={fd.answers.options.some((selectedOption)=> selectedOption.value == option?.value ) }
+                        
+                        style={{ marginRight: '8px' }}
+                    />
+                <span>{option.name}</span>
+                </div>
+                </MenuItem>
+                </>
+            )}
+
             />
           </div> 
          </div>
@@ -273,13 +311,14 @@ const [fd , setFd ]  = useState({
         
               
             {fd?.answers?.options && fd?.answers?.options.length>0 &&  fd?.answers?.options.map((ele, index)=> {
-                 return <>                  
-                    <li className="list-group-item flex justify-content-between"  > 
+                 return <> 
+           
+                   <li className="list-group-item flex justify-content-between">      
                   {ele?.name || ""}
                   <select style={{width:"auto"}} name="setDifficulty"   onChange={(e)=>onChangeDifficulty(e, index)}   className="form-select form-select-sm " aria-label=".form-select-sm example">
                     <option selected>Select Difficulty</option>
                     {fd?.difficulty_level?.options && fd?.difficulty_level?.options.length>0 &&  fd?.difficulty_level?.options.map((ele)=>(
-                            <option value={ele._id}>{ele.DIFFICULTY_LEVEL}</option>
+                              <option value={ele._id}>{ele.DIFFICULTY_LEVEL}</option> 
                         )) }        
                     </select>
                      </li>

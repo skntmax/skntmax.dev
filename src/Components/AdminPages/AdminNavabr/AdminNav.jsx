@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function AdminNav() {
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <Link to="/">Homepage</Link>
+      <Link to="/home">Homepage</Link>
       <button
         class="navbar-toggler"
         type="button"
