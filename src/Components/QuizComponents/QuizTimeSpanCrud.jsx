@@ -5,7 +5,7 @@ import { v1rouer } from '../../actions/root_action';
 import { Cookies, useCookies } from 'react-cookie';
 import { constants } from '../../constant';
 
-function AddTimeSpan() {
+function QuizTimeSpanCrud() {
 
     const [cookies, setCookie] = useCookies ([constants.btcode_live_cd_key , constants.btcode_live_cd]);
 
@@ -14,6 +14,7 @@ function AddTimeSpan() {
      quiz_cat:{name:"quiz_cat" , value:"" , options:[] , pn:1 ,itemsPerPage: 1000   },    
      difficulty_level:{name:"difficulty_level" , value:"" , options:[] ,pn:1 ,itemsPerPage: 1000  },    
      duration:{name:"duration" , value:""  },    
+     list:{name:"list" , value:"" ,options:[]   },    
     }
         
     
@@ -28,6 +29,10 @@ function AddTimeSpan() {
 
                  if(action.name=="difficulty_level") {
                     return {...state,['difficulty_level']:{...state['difficulty_level'] , options:payload.data.map(ele=>({name:ele.DIFFICULTY_LEVEL, value:ele._id}))  }  }                    
+                } 
+
+                if(action.name=="list") {
+                    return {...state,['list']:{...state['list'] , options:payload.data  }  }                    
                 } 
 
             case "value" :
@@ -73,7 +78,7 @@ function AddTimeSpan() {
     
 
     const callTimeStamp = async (payload)=>{
-        let res = await v1rouer.post('quiz/get-quiz-timestamps/false' , payload ,{
+        let res = await v1rouer.post('quiz/get-quiz-timestamps/true' , payload ,{
             headers:{
                  "authorization":`Bearer ${cookies[constants.btcode_live_cd_key]}`
             }
@@ -122,8 +127,8 @@ function AddTimeSpan() {
                   "difficultyId":difficulty_level?.value[0]?.value
                   })    
 
-                  if(timeStamp?.QUIZ_TIMESPAN)
-                    dispatch({type:"value",name:"duration", payload:{ data : Number(timeStamp?.QUIZ_TIMESPAN)  }}) 
+                  if(timeStamp)
+                        dispatch({type:"options",name:"list", payload:{ data : timeStamp }})
                 }
             })()
          
@@ -133,9 +138,7 @@ function AddTimeSpan() {
     
 
     const UpdateTimeStamp = async ()=>{
-        setLoader(true)
-
-         
+        setLoader(true)         
         if(fd.quiz_cat.value && fd.difficulty_level.value) {
 
             let  timeStamp = await updateTimeStamp({ 
@@ -156,7 +159,7 @@ function AddTimeSpan() {
 
   
 
-   const { quiz_cat , difficulty_level , duration }  = fd 
+   const { quiz_cat , difficulty_level ,list }  = fd 
     
     return (
             <>
@@ -164,7 +167,7 @@ function AddTimeSpan() {
                         
                 <div class="container">
                 <div class="row">
-                    <div className="col-sm">
+                    <div className="col-6">
                       
                     <Typeahead
                     id="basic-typeahead-single"
@@ -183,7 +186,7 @@ function AddTimeSpan() {
                     
 
                     </div>
-                    <div className="col-sm">
+                    <div className="col-6">
                    
                        
                     <Typeahead
@@ -198,22 +201,29 @@ function AddTimeSpan() {
                     selected={difficulty_level.value}
                     />
                     </div>
-                    <div className="col-sm">
 
-                    <select class="form-select"
-                      onChange={(e)=>{
-                        dispatch({type:"value",name:"duration", payload:{ data : Number(e.target.value)  }}) }}
-                    selected={duration.value}                    
-                    name={duration.name}
-                    value={duration.value}
-                     aria-label="Default select example">
-                        {(new Array(100)).fill(undefined).map((ele,index)=> 5*index).slice(1,).map(ele=>  <option 
-                        value={ele} 
-                        >{ele} min </option>  ) }  
-                        </select>
 
+               {list && list.options && list.options.map((ele)=>{
+                 return <>
+
+                 <div class="list-group mt-2">
+                        <button type="button" class="list-group-item list-group-item-action " aria-current="true">
+                            { ele.cat[0]?.TITLE } ---------------- 
+                            { ele.difficulty[0]?.DIFFICULTY_LEVEL }  
+                        </button>                    
+                     </div>
+                 </>
+               })}
+                    <div className="col-sm mt-2">
+                 
+
+                   
                     </div>
+
+
+
                     <div class="d-grid gap-2 my-5">
+
 
                    
                              <button 
@@ -235,4 +245,4 @@ function AddTimeSpan() {
   )
 }
 
-export default AddTimeSpan
+export default QuizTimeSpanCrud

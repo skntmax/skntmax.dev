@@ -2,6 +2,7 @@ import React from 'react'
 import AddQuestionToCatgs from './AddQuestionToCatgs'
 import AddQuizQuestion from './AddQuizQuestion'
 import AddTimeSpan from './AddTimeSpan'
+import QuizTimeSpanCrud from './QuizTimeSpanCrud'
 
 function QuizSection() {
   
@@ -27,6 +28,16 @@ function QuizSection() {
     <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#quiz-timespan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> Add Quiz timespan </button>
   </li>
 
+
+  
+  
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#quiz-timespan-crud" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> Add Quiz timespan </button>
+  </li>
+
+
+
+
 </ul>
  
 <div class="tab-content" id="pills-tabContent">
@@ -44,6 +55,13 @@ function QuizSection() {
 
   <div class="tab-pane fade" id="quiz-timespan" role="tabpanel" aria-labelledby="pills-contact-tab">
          <AddTimeSpan />
+  </div>
+
+
+
+
+  <div class="tab-pane fade" id="quiz-timespan-crud" role="tabpanel" aria-labelledby="pills-contact-tab">
+         <QuizTimeSpanCrud />
   </div>
 
 
