@@ -104,7 +104,6 @@ const [fd , setFd ]  = useState({
             pagination:false
         } )
         return res?.result
-       
     }
 
 
