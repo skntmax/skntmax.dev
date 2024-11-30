@@ -75,6 +75,16 @@ function QuizTimeSpanCrud() {
     let res = await v1rouer.get('quiz/get-difficulty-level' )
     return res?.result
     }
+
+    const callRemoveTimestamp = async (payload)=>{
+        let res = await v1rouer.post('quiz/remove-timestamp' ,payload ,{
+            headers:{
+                 "authorization":`Bearer ${cookies[constants.btcode_live_cd_key]}`
+                }
+           })
+        return res?.result
+        }
+
     
 
     const callTimeStamp = async (payload)=>{
@@ -87,17 +97,6 @@ function QuizTimeSpanCrud() {
         }
     
         
-
-
-        
-    const updateTimeStamp = async (payload)=>{
-        let res = await v1rouer.post('quiz/update-timespan-of-quiz-catgs' , payload ,{
-            headers:{
-                 "authorization":`Bearer ${cookies[constants.btcode_live_cd_key]}`
-            }
-        }   )
-        return res?.result?.data
-        }
     
 
     const setCat =async  ()=>{
@@ -137,20 +136,25 @@ function QuizTimeSpanCrud() {
 
     
 
-    const UpdateTimeStamp = async ()=>{
+    const UpdateTimeStamp = async (id)=>{
         setLoader(true)         
         if(fd.quiz_cat.value && fd.difficulty_level.value) {
 
-            let  timeStamp = await updateTimeStamp({ 
-                "quizCat":fd.quiz_cat?.value[0]?.value , 
-                "difficultyId":fd.difficulty_level?.value[0]?.value,
-                timeSpan:fd.duration.value
+           // removing  item 
+             await callRemoveTimestamp({ 
+                timeStampId:id
               })    
-               
-              if(timeStamp){
-                 alert("updated")
-              }
 
+
+        // reloading item 
+        let  timeStamp = await callTimeStamp({ 
+        "quizCat":quiz_cat?.value[0]?.value , 
+        "difficultyId":difficulty_level?.value[0]?.value
+        })    
+
+        if(timeStamp)
+            dispatch({type:"options",name:"list", payload:{ data : timeStamp }})
+    
             }
 
         setLoader(false)
@@ -209,34 +213,15 @@ function QuizTimeSpanCrud() {
                  <div class="list-group mt-2">
                         <button type="button" class="list-group-item list-group-item-action " aria-current="true">
                             { ele.cat[0]?.TITLE } ---------------- 
-                            { ele.difficulty[0]?.DIFFICULTY_LEVEL }  
+                            { ele.difficulty[0]?.DIFFICULTY_LEVEL } -- {ele.QUIZ_TIMESPAN}  
                         </button>                    
+                        <span onClick ={()=>   UpdateTimeStamp(ele._id)}> remove </span>
                      </div>
                  </>
                })}
-                    <div className="col-sm mt-2">
-                 
-
                    
-                    </div>
 
 
-
-                    <div class="d-grid gap-2 my-5">
-
-
-                   
-                             <button 
-                             disabled={loader?true:false}
-                             class="btn btn-primary" type="button" onClick={UpdateTimeStamp}>
-                             {
-                            loader? <div class="spinner-border" role="status">
-                        </div> :"update timestamp"
-                }         
-
-
-                             </button>
-                    </div>
                 </div>
         </div>
 
