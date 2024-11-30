@@ -25,14 +25,14 @@ function QuizSection() {
 
 
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#quiz-timespan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> Add Quiz timespan </button>
+    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#quiz-timespan" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> update Quiz timespan </button>
   </li>
 
 
   
   
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#quiz-timespan-crud" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> Add Quiz timespan </button>
+    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#quiz-timespan-crud" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"> remove Quiz timespan </button>
   </li>
 
 
